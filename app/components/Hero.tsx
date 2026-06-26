@@ -22,7 +22,7 @@ export default function Hero() {
         odéve
       </div>
 
-      {/* 사진 영역 — 실제 사진으로 교체 */}
+      {/* 사진 영역 */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div
           style={{
@@ -51,7 +51,7 @@ export default function Hero() {
       <div className="relative z-10 px-6 pb-10 pt-16">
         <p
           className="font-serif"
-          style={{ fontSize: 14, fontStyle: "italic", color: "rgba(26,26,26,0.5)", marginBottom: 12, letterSpacing: "0.04em" }}
+          style={{ fontSize: 13, fontStyle: "italic", color: "rgba(26,26,26,0.45)", marginBottom: 12, letterSpacing: "0.04em" }}
         >
           (semi-permanent beauty)
         </p>
@@ -63,7 +63,7 @@ export default function Hero() {
             fontStyle: "italic",
             color: "#1a1a1a",
             lineHeight: 1.1,
-            marginBottom: 24,
+            marginBottom: 20,
             letterSpacing: "-0.01em",
           }}
         >
@@ -72,46 +72,16 @@ export default function Hero() {
           <span style={{ fontStyle: "normal" }}>더 아름답게.</span>
         </h1>
 
-        <p
-          style={{ fontSize: 13, fontWeight: 300, color: "rgba(26,26,26,0.5)", letterSpacing: "0.06em", marginBottom: 28 }}
-        >
+        <p style={{ fontSize: 12, fontWeight: 300, color: "rgba(26,26,26,0.45)", letterSpacing: "0.08em", marginBottom: 28 }}>
           눈썹문신 · 아이라인 · 입술문신 · 속눈썹 펌
         </p>
 
-        <div className="flex gap-3">
-          <a
-            href="#booking"
-            style={{
-              flex: 1,
-              padding: "15px 0",
-              borderRadius: 4,
-              background: "#1a1a1a",
-              color: "#edeae5",
-              fontSize: 12,
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-              textAlign: "center",
-            }}
-          >
+        {/* 버튼 2개 — 같은 높이, 같은 radius */}
+        <div style={{ display: "flex", gap: 10 }}>
+          <a href="#booking" className="btn btn-dark" style={{ flex: 1 }}>
             예약하기
           </a>
-          <a
-            href="#portfolio"
-            style={{
-              padding: "15px 20px",
-              borderRadius: 4,
-              background: "rgba(255,255,255,0.45)",
-              border: "1px solid rgba(26,26,26,0.12)",
-              color: "#555",
-              fontSize: 12,
-              fontWeight: 400,
-              letterSpacing: "0.08em",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-            }}
-          >
+          <a href="#portfolio" className="btn btn-ghost">
             포트폴리오
           </a>
         </div>
