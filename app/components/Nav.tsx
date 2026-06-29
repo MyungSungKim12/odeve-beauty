@@ -1,28 +1,17 @@
-"use client";
+import { siteContent } from "../content";
 
 export default function Nav() {
-  return (
-    <nav
-      style={{ background: "var(--bg)", borderBottom: "1px solid var(--line)" }}
-      className="sticky top-0 z-50 flex items-center justify-between px-6"
-    >
-      <div style={{ minHeight: 56, display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-        {/* 로고 */}
-        <div
-          className="font-serif"
-          style={{ fontSize: 22, fontStyle: "italic", fontWeight: 400, letterSpacing: "0.02em" }}
-        >
-          odéve{" "}
-          <span style={{ fontStyle: "normal", fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: 12, color: "var(--muted)" }}>
-            beauty
-          </span>
-        </div>
+  const { brand, nav } = siteContent;
 
-        {/* 예약 버튼 */}
-        <a href="#booking" className="btn btn-dark" style={{ minHeight: 40, fontSize: 11, padding: "0 16px", borderRadius: 100 }}>
-          예약하기
-        </a>
-      </div>
+  return (
+    <nav className="nav">
+      <a className="nav-brand" href="#top" aria-label={`${brand.studio} 홈`}>
+        <span className="font-serif nav-logo">{brand.name}</span>
+        <span>{brand.suffix}</span>
+      </a>
+      <a href="#booking" className="btn btn-primary nav-cta">
+        {nav.bookingLabel}
+      </a>
     </nav>
   );
 }
