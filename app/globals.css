@@ -50,7 +50,7 @@ a {
   width: min(100%, 480px);
   min-height: 100svh;
   margin: 0 auto;
-  overflow: hidden;
+  overflow-x: clip;
   background: var(--bg);
   box-shadow: 0 0 0 1px rgba(29, 26, 23, 0.04), var(--shadow-soft);
 }
