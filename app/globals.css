@@ -293,6 +293,156 @@ a {
   letter-spacing: 0.04em;
 }
 
+.portfolio-section {
+  padding-right: 0;
+}
+
+.portfolio-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding-right: 22px;
+}
+
+.portfolio-heading a {
+  color: var(--accent-dark);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.portfolio-rail {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 2px 22px 8px 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portfolio-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.portfolio-card {
+  min-width: min(72vw, 250px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.portfolio-photo {
+  position: relative;
+  display: flex;
+  height: 260px;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #d5cbc0, #bfb3a7);
+  color: rgba(255, 250, 242, 0.72);
+}
+
+.portfolio-photo span {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
+
+.portfolio-photo strong {
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.portfolio-copy {
+  padding: 15px;
+}
+
+.portfolio-copy p {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.portfolio-copy small {
+  display: block;
+  margin-top: 3px;
+  color: var(--soft);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.portfolio-copy em {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.services-section {
+  background: var(--surface);
+}
+
+.service-list {
+  border-top: 1px solid var(--line);
+}
+
+.service-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.service-row h3 {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.service-row p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.service-price {
+  max-width: 118px;
+  text-align: right;
+}
+
+.service-price strong {
+  display: block;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.service-price span {
+  display: block;
+  margin-top: 4px;
+  color: var(--soft);
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.45;
+}
+
 @media (min-width: 768px) {
   body {
     padding: 24px 0;
