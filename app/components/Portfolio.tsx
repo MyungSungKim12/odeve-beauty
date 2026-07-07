@@ -1,11 +1,12 @@
 import { siteContent } from "../content";
+import Reveal from "./motion/Reveal";
 
 export default function Portfolio() {
   const { portfolio } = siteContent;
 
   return (
     <section id="portfolio" className="section portfolio-section">
-      <div className="section-heading portfolio-heading">
+      <Reveal className="section-heading portfolio-heading">
         <div>
           <p className="eyebrow">({portfolio.eyebrow})</p>
           <h2 className="section-title">{portfolio.title}</h2>
@@ -13,10 +14,16 @@ export default function Portfolio() {
         <a href={portfolio.more.href} target="_blank" rel="noopener noreferrer">
           {portfolio.more.label}
         </a>
-      </div>
+      </Reveal>
       <div className="portfolio-rail">
-        {portfolio.items.map((item) => (
-          <article className="portfolio-card" key={item.label}>
+        {portfolio.items.map((item, index) => (
+          <Reveal
+            as="article"
+            className="portfolio-card"
+            key={item.label}
+            delay={index * 0.09}
+            y={20}
+          >
             <div className="portfolio-photo">
               <span>After</span>
               <strong className="font-serif">사진 준비중</strong>
@@ -26,7 +33,7 @@ export default function Portfolio() {
               <small className="font-serif">{item.en}</small>
               <em>{item.note}</em>
             </div>
-          </article>
+          </Reveal>
         ))}
       </div>
     </section>

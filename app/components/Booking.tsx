@@ -1,11 +1,12 @@
 import { siteContent } from "../content";
+import Reveal from "./motion/Reveal";
 
 export default function Booking() {
   const { booking } = siteContent;
 
   return (
     <section id="booking" className="booking-section">
-      <div className="booking-panel">
+      <Reveal className="booking-panel" y={32}>
         <p className="eyebrow">({booking.eyebrow})</p>
         <h2 className="booking-title">{booking.title}</h2>
         <p className="booking-body">{booking.body}</p>
@@ -33,7 +34,7 @@ export default function Booking() {
             </a>
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
