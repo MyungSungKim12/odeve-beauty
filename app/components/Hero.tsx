@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import {
   motion,
@@ -16,7 +17,6 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
 
-  // 스크롤 시 워터마크/비주얼이 본문보다 천천히 내려가며 깊이감을 만든다
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -44,13 +44,18 @@ export default function Hero() {
       </motion.div>
       <motion.div
         className="hero-visual"
-        aria-hidden
         style={reduce ? undefined : { y: visualY }}
         initial={reduce ? false : { opacity: 0, scale: 0.94 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.1, delay: 0.1, ease: EASE }}
       >
-        <span className="font-serif">photo ready</span>
+        <Image
+          src={hero.image.src}
+          alt={hero.image.alt}
+          fill
+          priority
+          sizes="(max-width: 480px) 66vw, 270px"
+        />
       </motion.div>
       <div className="hero-content">
         <motion.p className="eyebrow" {...fadeUp(0.15)}>

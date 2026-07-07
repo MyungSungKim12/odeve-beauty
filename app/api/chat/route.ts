@@ -28,7 +28,7 @@ function buildSystemPrompt(): string {
     .map((s) => `- ${s.strong}: ${s.text}`)
     .join("\n");
 
-  return `당신은 "${brand.studio}"의 AI 상담사입니다. ${brand.description}인 이 스튜디오를 방문한 고객의 질문에 답합니다.
+  return `당신은 "${brand.studio}"의 AI 상담사입니다. ${brand.description}를 방문할 고객의 질문에 답합니다.
 
 ## 시술 메뉴와 가격
 ${serviceLines}
@@ -39,12 +39,12 @@ ${faqLines}
 ## 예약 방법
 ${bookingLines}
 
-## 답변 규칙
-- 위에 제공된 정보를 근거로만 답하고, 모르는 내용은 지어내지 말고 카카오 채널 1:1 상담을 안내하세요.
-- 가격은 "~부터" 시작가이며, 정확한 견적은 상담 시 결정된다고 안내하세요.
-- 의학적 진단이나 치료 판단은 하지 마세요. 피부 질환, 임신·수유, 복용 약물 등이 언급되면 반드시 시술 전 전문 상담이 필요하다고 안내하세요.
-- 답변은 한국어 존댓말로, 2~4문장 이내로 간결하게 하세요.
-- 대화가 예약으로 이어질 만하면 마지막에 자연스럽게 네이버 예약 또는 카카오 채널 상담을 권해 주세요.`;
+## 응답 규칙
+- 위에 제공된 정보를 근거로 답하고, 모르는 내용은 지어내지 말고 카카오 채널 1:1 상담을 안내하세요.
+- 가격은 "~부터" 시작가이며, 정확한 견적은 상담 후 결정된다고 안내하세요.
+- 의학적 진단이나 치료 판단은 하지 마세요. 질환, 임신, 수유, 복용 약물 등이 언급되면 시술 전 전문 상담이 필요하다고 안내하세요.
+- 한국어 존댓말로 2~4문장 이내로 간결하게 답하세요.
+- 대화가 예약으로 이어질 만하면 마지막에 네이버 예약 또는 카카오 채널 상담을 자연스럽게 권하세요.`;
 }
 
 function validate(body: unknown): ChatRequest | null {
@@ -84,7 +84,6 @@ export async function POST(request: Request) {
 
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-  // Claude는 "assistant", Gemini는 "model" 역할명을 쓴다.
   const contents = chat.messages.map((m) => ({
     role: m.role === "assistant" ? "model" : "user",
     parts: [{ text: m.content }],
@@ -110,7 +109,9 @@ export async function POST(request: Request) {
           }
         }
         if (!received) {
-          emit("죄송해요, 이 내용은 답변이 어려워요. 카카오 채널로 문의 주시면 원장님이 직접 안내해 드릴게요.");
+          emit(
+            "죄송해요, 답변을 불러오지 못했어요. 카카오 채널로 문의 주시면 원장이 직접 안내드릴게요.",
+          );
         }
       } catch {
         emit("잠시 연결이 원활하지 않아요. 조금 뒤에 다시 시도해 주세요.");

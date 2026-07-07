@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { siteContent } from "../content";
 import AutoRail from "./motion/AutoRail";
 import Reveal from "./motion/Reveal";
@@ -26,8 +27,13 @@ export default function Portfolio() {
                 aria-hidden={duplicate || undefined}
               >
                 <div className="portfolio-photo">
-                  <span>After</span>
-                  <strong className="font-serif">사진 준비중</strong>
+                  <Image
+                    src={item.image.src}
+                    alt={duplicate ? "" : item.image.alt}
+                    fill
+                    sizes="(max-width: 480px) 72vw, 250px"
+                  />
+                  <span>Dummy</span>
                 </div>
                 <div className="portfolio-copy">
                   <p>{item.label}</p>

@@ -14,13 +14,14 @@ const MAX_INPUT_CHARS = 1000;
 const GREETING: ChatTurn = {
   role: "assistant",
   content:
-    "안녕하세요, 오드브 뷰티 AI 상담사예요. 시술이나 가격, 관리 방법이 궁금하시면 편하게 물어보세요.",
+    "안녕하세요. 오드브 뷰티 AI 상담사예요. 시술, 가격, 관리 방법이 궁금하시면 편하게 물어보세요.",
 };
 
 const NOT_CONFIGURED_NOTICE =
-  "지금은 AI 상담 준비 중이에요. 카카오 채널 1:1 상담으로 문의 주시면 빠르게 도와드릴게요.";
+  "지금은 AI 상담 준비 중이에요. 카카오 채널 1:1 상담으로 문의 주시면 빠르게 안내드릴게요.";
 
-const ERROR_NOTICE = "잠시 연결이 원활하지 않아요. 조금 뒤에 다시 시도해 주세요.";
+const ERROR_NOTICE =
+  "잠시 연결이 원활하지 않아요. 조금 뒤에 다시 시도해 주세요.";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -71,7 +72,7 @@ export default function ChatWidget() {
 
     try {
       const payload = history
-        .slice(1) // 인사말 제외
+        .slice(1)
         .slice(-MAX_TURNS)
         .map((m) => ({ role: m.role, content: m.content }));
 
@@ -148,7 +149,7 @@ export default function ChatWidget() {
             <div className="chat-messages" ref={listRef} role="log">
               {messages.map((m, i) => (
                 <div key={i} className={`chat-msg chat-msg-${m.role}`}>
-                  <p>{m.content || "…"}</p>
+                  <p>{m.content || "입력 중..."}</p>
                 </div>
               ))}
             </div>
@@ -172,7 +173,7 @@ export default function ChatWidget() {
                 className="chat-send-btn"
                 disabled={sending || !input.trim()}
               >
-                {sending ? "…" : "전송"}
+                {sending ? "전송 중" : "전송"}
               </button>
             </form>
 
@@ -181,7 +182,7 @@ export default function ChatWidget() {
               <a href={kakaoHref} target="_blank" rel="noopener noreferrer">
                 카카오 채널 상담
               </a>
-              에서 도와드려요.
+              에서 안내드려요.
             </p>
           </section>
         </div>

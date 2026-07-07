@@ -214,6 +214,10 @@ a {
   text-transform: uppercase;
 }
 
+.hero-visual img {
+  object-fit: cover;
+}
+
 .hero-content {
   position: relative;
   z-index: 2;
@@ -340,7 +344,7 @@ a {
 }
 
 .marquee-row span::after {
-  content: "—";
+  content: "·";
   color: var(--accent);
   padding: 0 14px;
 }
@@ -418,10 +422,27 @@ a {
   color: rgba(255, 250, 242, 0.72);
 }
 
+.portfolio-photo img {
+  object-fit: cover;
+}
+
+.portfolio-photo::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(25, 23, 20, 0.04),
+    rgba(25, 23, 20, 0.16)
+  );
+  content: "";
+  pointer-events: none;
+}
+
 .portfolio-photo span {
   position: absolute;
   top: 12px;
   left: 12px;
+  z-index: 1;
   border-radius: 999px;
   background: var(--accent);
   color: #fff;

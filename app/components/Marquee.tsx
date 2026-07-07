@@ -22,7 +22,7 @@ export default function Marquee() {
     let raf = 0;
     let last = performance.now();
     let carry = 0;
-    const speed = 12; // px/초
+    const speed = 12;
 
     const tick = (now: number) => {
       const dt = now - last;
@@ -32,7 +32,6 @@ export default function Marquee() {
         if (carry >= 1) {
           const step = Math.floor(carry);
           carry -= step;
-          // 목록이 두 번 렌더돼 있으므로 앞쪽 절반이 한 루프
           const half = Math.floor(track.children.length / 2);
           if (half > 0) {
             const loopWidth =
