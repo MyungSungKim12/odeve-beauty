@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenAI } from "@google/genai";
 import { siteContent } from "../../content";
 
 export const maxDuration = 60;
@@ -14,9 +14,6 @@ type ChatTurn = {
 type ChatRequest = {
   messages: ChatTurn[];
 };
-
-const REFUSAL_NOTICE =
-  "죄송해요, 이 내용은 제가 답변드리기 어려워요. 카카오 채널로 문의 주시면 원장님이 직접 안내해 드릴게요.";
 
 function buildSystemPrompt(): string {
   const { brand, services, faq, booking } = siteContent;
@@ -69,7 +66,7 @@ function validate(body: unknown): ChatRequest | null {
 }
 
 export async function POST(request: Request) {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     return Response.json({ error: "not_configured" }, { status: 503 });
   }
 
@@ -85,37 +82,38 @@ export async function POST(request: Request) {
     return Response.json({ error: "invalid_request" }, { status: 400 });
   }
 
-  const client = new Anthropic();
-  const stream = client.messages.stream({
-    model: "claude-opus-4-8",
-    max_tokens: 1024,
-    system: [
-      {
-        type: "text",
-        text: buildSystemPrompt(),
-        cache_control: { type: "ephemeral" },
-      },
-    ],
-    messages: chat.messages,
-  });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+  // Claude는 "assistant", Gemini는 "model" 역할명을 쓴다.
+  const contents = chat.messages.map((m) => ({
+    role: m.role === "assistant" ? "model" : "user",
+    parts: [{ text: m.content }],
+  }));
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream<Uint8Array>({
     async start(controller) {
       const emit = (text: string) => controller.enqueue(encoder.encode(text));
       try {
-        for await (const event of stream) {
-          if (
-            event.type === "content_block_delta" &&
-            event.delta.type === "text_delta"
-          ) {
-            emit(event.delta.text);
+        const stream = await ai.models.generateContentStream({
+          model: "gemini-2.5-flash",
+          contents,
+          config: { systemInstruction: buildSystemPrompt() },
+        });
+
+        let received = false;
+        for await (const chunk of stream) {
+          const text = chunk.text;
+          if (text) {
+            received = true;
+            emit(text);
           }
         }
-        const final = await stream.finalMessage();
-        if (final.stop_reason === "refusal") emit(REFUSAL_NOTICE);
+        if (!received) {
+          emit("죄송해요, 이 내용은 답변이 어려워요. 카카오 채널로 문의 주시면 원장님이 직접 안내해 드릴게요.");
+        }
       } catch {
-        emit("\n\n잠시 연결이 원활하지 않아요. 조금 뒤에 다시 시도해 주세요.");
+        emit("잠시 연결이 원활하지 않아요. 조금 뒤에 다시 시도해 주세요.");
       } finally {
         controller.close();
       }
