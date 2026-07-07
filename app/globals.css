@@ -699,6 +699,8 @@ a {
   border: 0;
   background: rgba(29, 26, 23, 0.42);
   cursor: pointer;
+  touch-action: none;
+  overscroll-behavior: contain;
 }
 
 .chat-panel {

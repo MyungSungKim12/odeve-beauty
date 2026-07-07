@@ -38,6 +38,15 @@ export default function ChatWidget() {
     if (list) list.scrollTop = list.scrollHeight;
   }, [messages, open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
+
   async function send() {
     const text = input.trim();
     if (!text || sending) return;
