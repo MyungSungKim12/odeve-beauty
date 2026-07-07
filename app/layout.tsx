@@ -19,7 +19,7 @@ const sans = Noto_Sans_KR({
 export const metadata: Metadata = {
   title: `${siteContent.brand.studio} | 반영구 시술 전문 스튜디오`,
   description: siteContent.brand.description,
-  keywords: "오드브 뷰티, 반영구, 눈썹문신, 아이라인, 입술문신, 속눈썹펌",
+  keywords: "오더브 뷰티, 반영구, 눈썹문신, 아이라인, 입술문신, 속눈썹펌",
 };
 
 export default function RootLayout({

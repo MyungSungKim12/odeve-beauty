@@ -14,7 +14,7 @@ const MAX_INPUT_CHARS = 1000;
 const GREETING: ChatTurn = {
   role: "assistant",
   content:
-    "안녕하세요. 오드브 뷰티 AI 상담사예요. 시술, 가격, 관리 방법이 궁금하시면 편하게 물어보세요.",
+    "안녕하세요. 오더브 뷰티 AI 상담사예요. 시술, 가격, 관리 방법이 궁금하시면 편하게 물어보세요.",
 };
 
 const NOT_CONFIGURED_NOTICE =

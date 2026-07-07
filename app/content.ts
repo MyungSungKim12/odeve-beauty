@@ -14,7 +14,7 @@ export const siteContent = {
   brand: {
     name: "odeve",
     suffix: "beauty",
-    studio: "오드브 뷰티",
+    studio: "오더브 뷰티",
     tagline: "자연스럽게, 오래 아름답게.",
     description:
       "반영구 시술과 속눈썹 관리를 차분하게 제안하는 프라이빗 뷰티 스튜디오",
@@ -28,7 +28,7 @@ export const siteContent = {
     body: "눈썹문신, 아이라인, 입술문신, 속눈썹펌까지 얼굴의 분위기에 맞춰 섬세하게 완성합니다.",
     image: {
       src: "/images/hero-placeholder.jpg",
-      alt: "오드브 뷰티 시술 무드 더미 이미지",
+      alt: "오더브 뷰티 시술 무드 더미 이미지",
     },
     primaryCta: { label: "예약 상담", href: "#booking" },
     secondaryCta: { label: "시술 보기", href: "#portfolio" },

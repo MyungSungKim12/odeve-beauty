@@ -63,7 +63,7 @@ export const siteContent = {
   brand: {
     name: "odeve",
     suffix: "beauty",
-    studio: "오드브 뷰티",
+    studio: "오더브 뷰티",
     tagline: "자연스럽게, 오래 아름답게.",
     description: "반영구 시술과 속눈썹 관리를 차분하게 제안하는 프라이빗 뷰티 스튜디오",
   },
@@ -72,7 +72,7 @@ export const siteContent = {
   },
   hero: {
     eyebrow: "semi-permanent beauty",
-    title: "뷰티 디자인",
+    title: "타이틀문구",
     body: "눈썹문신, 아이라인, 입술문신, 속눈썹펌까지 얼굴의 분위기에 맞춰 섬세하게 완성합니다.",
     primaryCta: { label: "예약 상담", href: "#booking" },
     secondaryCta: { label: "시술 보기", href: "#portfolio" },
@@ -191,7 +191,7 @@ const sans = Noto_Sans_KR({
 export const metadata: Metadata = {
   title: `${siteContent.brand.studio} | 반영구 시술 전문 스튜디오`,
   description: siteContent.brand.description,
-  keywords: "오드브 뷰티, 반영구, 눈썹문신, 아이라인, 입술문신, 속눈썹펌",
+  keywords: "오더브 뷰티, 반영구, 눈썹문신, 아이라인, 입술문신, 속눈썹펌",
 };
 
 export default function RootLayout({
