@@ -305,7 +305,6 @@ a {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 60s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

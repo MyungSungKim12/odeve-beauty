@@ -30,54 +30,57 @@ export default function AutoRail({
   useEffect(() => {
     const el = ref.current;
     if (!el || reduce) return;
-
-    let raf = 0;
-    let last = performance.now();
-    let pausedUntil = 0;
-    let carry = 0;
-
-    const pause = () => {
-      pausedUntil = performance.now() + resumeDelay;
-    };
-
-    // 목록이 두 번 렌더돼 있으므로, 앞쪽 절반의 실제 폭이 한 루프 거리다
-    const loopWidth = () => {
-      const half = Math.floor(el.children.length / 2);
-      if (half === 0) return 0;
-      const first = el.children[0] as HTMLElement;
-      const mirror = el.children[half] as HTMLElement;
-      return mirror.offsetLeft - first.offsetLeft;
-    };
-
-    const tick = (now: number) => {
-      const dt = now - last;
-      last = now;
-      if (now > pausedUntil && dt < 200) {
-        carry += (speed * dt) / 1000;
-        if (carry >= 1) {
-          const step = Math.floor(carry);
-          carry -= step;
-          const loop = loopWidth();
-          let next = el.scrollLeft + step;
-          if (loop > 0 && next >= loop) next -= loop;
-          el.scrollLeft = next;
+    // 마운트 직후에는 레이아웃이 완성 안 됐을 수 있으니 약간 지연
+    const initTimer = setTimeout(() => {
+      let raf = 0;
+      let last = performance.now();
+      let pausedUntil = 0;
+      let carry = 0;
+      const pause = () => {
+        pausedUntil = performance.now() + resumeDelay;
+      };
+      const getLoopWidth = () => {
+        const half = Math.floor(el.children.length / 2);
+        if (half === 0) return 0;
+        const first = el.children[0] as HTMLElement;
+        const mirror = el.children[half] as HTMLElement;
+        const width = mirror.offsetLeft - first.offsetLeft;
+        // 너비가 0이면 아직 렌더 안 됨 — 매 프레임마다 재계산하도록 반환
+        return width;
+      };
+      const tick = (now: number) => {
+        const dt = now - last;
+        last = now;
+        if (now > pausedUntil && dt < 200) {
+          carry += (speed * dt) / 1000;
+          if (carry >= 1) {
+            const step = Math.floor(carry);
+            carry -= step;
+            const loop = getLoopWidth();
+            // loopWidth가 아직 0이면 이번 프레임은 건너뛰고 다음 프레임 기다림
+            if (loop > 0) {
+              let next = el.scrollLeft + step;
+              if (next >= loop) next -= loop;
+              el.scrollLeft = next;
+            }
+          }
         }
-      }
+        raf = requestAnimationFrame(tick);
+      };
       raf = requestAnimationFrame(tick);
-    };
-
-    raf = requestAnimationFrame(tick);
-    el.addEventListener("pointerdown", pause);
-    el.addEventListener("wheel", pause, { passive: true });
-    el.addEventListener("touchstart", pause, { passive: true });
-    el.addEventListener("touchmove", pause, { passive: true });
-    return () => {
-      cancelAnimationFrame(raf);
-      el.removeEventListener("pointerdown", pause);
-      el.removeEventListener("wheel", pause);
-      el.removeEventListener("touchstart", pause);
-      el.removeEventListener("touchmove", pause);
-    };
+      el.addEventListener("pointerdown", pause);
+      el.addEventListener("wheel", pause, { passive: true });
+      el.addEventListener("touchstart", pause, { passive: true });
+      el.addEventListener("touchmove", pause, { passive: true });
+      return () => {
+        cancelAnimationFrame(raf);
+        el.removeEventListener("pointerdown", pause);
+        el.removeEventListener("wheel", pause);
+        el.removeEventListener("touchstart", pause);
+        el.removeEventListener("touchmove", pause);
+      };
+    }, 100);
+    return () => clearTimeout(initTimer);
   }, [reduce, speed, resumeDelay]);
 
   return (
