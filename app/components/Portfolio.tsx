@@ -1,4 +1,5 @@
 import { siteContent } from "../content";
+import AutoRail from "./motion/AutoRail";
 import Reveal from "./motion/Reveal";
 
 export default function Portfolio() {
@@ -15,27 +16,29 @@ export default function Portfolio() {
           {portfolio.more.label}
         </a>
       </Reveal>
-      <div className="portfolio-rail">
-        {portfolio.items.map((item, index) => (
-          <Reveal
-            as="article"
-            className="portfolio-card"
-            key={item.label}
-            delay={index * 0.09}
-            y={20}
-          >
-            <div className="portfolio-photo">
-              <span>After</span>
-              <strong className="font-serif">사진 준비중</strong>
-            </div>
-            <div className="portfolio-copy">
-              <p>{item.label}</p>
-              <small className="font-serif">{item.en}</small>
-              <em>{item.note}</em>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+      <Reveal delay={0.08} y={20}>
+        <AutoRail className="portfolio-rail">
+          {[false, true].map((duplicate) =>
+            portfolio.items.map((item) => (
+              <article
+                className="portfolio-card"
+                key={`${item.label}${duplicate ? "-dup" : ""}`}
+                aria-hidden={duplicate || undefined}
+              >
+                <div className="portfolio-photo">
+                  <span>After</span>
+                  <strong className="font-serif">사진 준비중</strong>
+                </div>
+                <div className="portfolio-copy">
+                  <p>{item.label}</p>
+                  <small className="font-serif">{item.en}</small>
+                  <em>{item.note}</em>
+                </div>
+              </article>
+            )),
+          )}
+        </AutoRail>
+      </Reveal>
     </section>
   );
 }
