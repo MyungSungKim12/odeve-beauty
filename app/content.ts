@@ -24,7 +24,7 @@ export const siteContent = {
   },
   hero: {
     eyebrow: "semi-permanent beauty",
-    title: "자연스러운 결을 살리는 뷰티 디자인",
+    title: "타이틀",
     body: "눈썹문신, 아이라인, 입술문신, 속눈썹펌까지 얼굴의 분위기에 맞춰 섬세하게 완성합니다.",
     image: {
       src: "/images/hero-placeholder.jpg",
