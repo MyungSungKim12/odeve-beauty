@@ -377,21 +377,24 @@ a {
   text-decoration: none;
 }
 
-.portfolio-rail {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding: 2px 22px 8px 0;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+.portfolio-carousel {
+  padding-right: 22px;
 }
 
-.portfolio-rail::-webkit-scrollbar {
-  display: none;
+.portfolio-viewport {
+  overflow: hidden;
+  padding: 2px 0 8px;
+}
+
+.portfolio-track {
+  display: flex;
+  gap: 12px;
+  touch-action: pan-y pinch-zoom;
 }
 
 .portfolio-card {
-  min-width: min(72vw, 250px);
+  flex: 0 0 min(72vw, 250px);
+  min-width: 0;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -484,6 +487,32 @@ a {
   font-size: 12px;
   font-style: normal;
   line-height: 1.5;
+}
+
+.portfolio-dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.portfolio-dots button {
+  width: 7px;
+  height: 7px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(29, 26, 23, 0.18);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease,
+    width 160ms ease;
+}
+
+.portfolio-dots button.is-active {
+  width: 20px;
+  background: var(--accent);
 }
 
 .services-section {
