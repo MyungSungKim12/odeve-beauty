@@ -1,4 +1,6 @@
 import Booking from "./components/Booking";
+import ChatWidget from "./components/ChatWidget";
+import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
@@ -14,8 +16,10 @@ export default function Home() {
       <TrustBar />
       <Portfolio />
       <Services />
+      <Faq />
       <Booking />
       <Footer />
+      <ChatWidget />
     </main>
   );
 }
